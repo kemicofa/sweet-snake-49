@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    font-family: 'Press Start 2P', cursive;
+}
+
+header {
+    background-color: #2e1424;
+    color: white;
+    height: 6vh;
+    display: flex;
+    box-shadow: 0 0 10px black;
+}
+
+header > * {
+    margin: auto;
+    text-align: center;
+}
+
+main {
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 50vw;
+}
+
+main > * {
+    width: 100%;
+}
+
+table, th, td {
+    border: 0.2rem solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: center;
+    padding: 0.5rem 1rem;
+}

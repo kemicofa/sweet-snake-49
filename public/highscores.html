@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>W11 Snake</title>
+        <meta charset="utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./css/highscores.css">
+    </head>
+    <body>
+        <header>
+            <h1>Highscores</h1>
+        </header>
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Username</th>
+                        <th>Score</th>
+                        <th>Attempts</th>
+                    </tr>
+                </thead>
+                <tbody id="highscore-entries">
+                
+                </tbody>
+            </table>
+        </main>
+        
+        <script>
+            const tbody = document.getElementById("highscore-entries");
+            const updateHighscores = async () => {
+                const response = await fetch('./snake/highscores');
+                const results = await response.json();
+                tbody.innerHTML = '';
+                results.forEach(({ score, username, attempts }, index) => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${index + 1}.</td>
+                            <td>${username}</td>
+                            <td>${score}</td>
+                            <td>${attempts}</td>
+                        </tr>
+                    `;
+                });
+            }
+
+            updateHighscores().catch(console.warn);
+            setInterval(() => updateHighscores().catch(console.warn), 10000);
+        </script>
+    </body>
+</html>
