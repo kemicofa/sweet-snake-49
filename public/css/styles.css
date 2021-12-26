@@ -1,0 +1,246 @@
+/*
+    General Css
+*/
+
+body {
+    margin: 0;
+    font-family: 'Press Start 2P', cursive;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 4rem;
+}
+
+main > section {
+    display: flex;
+    flex-direction: row;
+}
+
+main > section > *:nth-child(2) {
+    flex-grow: 1;
+    justify-self: center;
+}
+
+main > section > *:not(:nth-child(2)) {
+    width: 20vw;
+}
+
+main > section > *:nth-child(2) > ol {
+    margin: auto;
+}
+
+body > header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    background-color: #2e1424;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-shadow: 0 0 10px black;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+body > header > div {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+body > header > div > img {
+    height: 64px;
+    width: auto;
+}
+
+table, tr, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px 10px;
+}
+
+/* 
+    Buttons
+*/
+
+.button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.button {
+    background-color: #FFAD00;
+    border: 0;
+    height: 6rem;
+    width: 6rem;
+    cursor: pointer;
+    border-radius: 2rem;
+    margin: 1rem;
+    box-shadow: 0 0 5px #FFAD00;
+    font-size: x-large;
+}
+
+.button:hover {
+    background-color: #E0E722;
+    box-shadow: 0 0 40px #E0E722;
+}
+
+/* 
+    Form
+*/
+
+body > header form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > header form > * {
+    margin-left: 1rem;
+}
+
+body > header form > input {
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+}
+
+body > header form > button {
+    background-color: #FFAD00;
+    border: 0;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
+
+body > header form > button:hover {
+    background-color: #E0E722;
+    box-shadow: 0 0 40px #E0E722;
+}
+
+/*
+    Snake Game Css
+*/
+
+#snake-game {
+    display: flex;
+    background-color: #2e1424;
+    flex-wrap: wrap;
+    width: 44vw;
+    padding-left: 0;
+    list-style-type: none;
+    box-shadow: 0 0 20px black;
+}
+
+#snake-game > * {
+    width: 4vw;
+    height: 4vw;
+    margin: 0.2vw;
+}
+
+#snake-game .snake {
+    background-color: #eb0450;
+}
+
+#snake-game .snake.head {
+    border-radius: 0 50% 50% 0;
+    position: relative;
+    z-index: 10;
+}
+
+#snake-game .snake.tail {
+    border-radius: 80% 0 0 80%;
+}
+
+#snake-game .food {
+    background-color: #f547c3;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #f547c3;
+
+}
+
+#snake-game .snake.head .eye {
+    width: 2px;
+    height: 2px;
+}
+
+#snake-game .snake.head .eye {
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    background-color: black;
+    border-radius: 50%;
+}
+
+#snake-game .snake.head .eye:first-child {
+    top: 25%;
+    right: 25%;
+    z-index: 11;
+}
+
+#snake-game .snake.head .eye:nth-child(2) {
+    bottom: 25%;
+    right: 25%;
+    z-index: 11;
+}
+
+#snake-game .snake.head .tongue {
+    position: absolute;
+    bottom: 40%;
+    right: -19px;
+    width: 20px;
+    height: 10px;
+    background-color: #44D62C;
+    z-index: 9;
+}
+
+.direction-north {
+    transform: rotate(90deg);
+}
+
+.direction-east {
+    transform: rotate(0);
+}
+
+.direction-south {
+    transform: rotate(270deg);
+}
+
+
+.direction-west {
+    transform: rotate(180deg);
+}
+
+/* 
+    Aside + Article
+*/
+
+aside, main > section > article:nth-child(3) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/*
+    Footer
+*/
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+footer > section {
+    display: flex;
+    flex-direction: row;
+    
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>W11 Snake</title>
+        <meta charset="utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./css/styles.css">
+    </head>
+    <body>
+        <header>
+            <div>
+                <h1>11 Snake</h1>
+                <img src="./imgs/snake-v2.png" alt="snake logo">
+            </div>
+            <form id="form">
+                <label for="username">Pick and Play</label>
+                <input type="text" name="username" id="username" placeholder="MyAwesomeUsername..." required>
+                <button type="submit">Play</button>
+            </form>
+        </header>
+        <main>
+            <section>
+                <aside>
+                    <h2>How to play</h2>
+                    <ol>
+                        <li>Choose a usernmae and play</li>
+                        <li>Arrow buttons to turn left or right</li>
+                        <li>Eat the food on the map</li>
+                        <li>Speed increases every 10 points</li>
+                        <li>It's <strong>GAME OVER</strong> if you eat yourself</li>
+                    </ol>
+            </aside>
+            <article>
+                <ol id="snake-game">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li class="snake tail"></li>
+                    <li class="snake body"></li>
+                    <li class="snake body"></li>
+                    <li class="snake head">
+                        <span class="eye"></span>
+                        <span class="eye"></span>
+                        <span class="tongue"></span>
+                    </li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li class="food"></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ol>
+                <div class="button-group">
+                    <button class="button" id="left">◀</button>
+                    <button class="button" id="right">▶</button>
+                </div>
+            </article>
+            <article>
+                <h2>Statistics</h2>
+                <table>
+                    <tr>
+                        <th>Score</th><td id="score">0</td>
+                    </tr>
+                    <tr>
+                        <th>Speed</th><td id="speed">0</td>
+                    </tr>
+                </table>
+            </article>
+        </section>
+        </main>
+        <footer>
+            <section>
+                <article>
+                    <h4>Creators</h4>
+                    <ul>
+                        <li>Aurelie</li>
+                        <li>Cyril</li>
+                        <li>Tristan</li>
+                        <li>Eric</li>
+                        <li>Kevin</li>
+                    </ul>
+                </article>
+                <article>
+
+                </article>
+            </section>
+            <address>
+                72 Rte du Rhin, 67411 Illkirch-Graffenstaden, France
+            </address>
+        </footer>
+        <script src="./js/snake.bundle.js"></script>
+    </body>
+</html>

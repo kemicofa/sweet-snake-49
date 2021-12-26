@@ -1,1 +1,1 @@
-export { default } from './snake.ts';
+export { default } from "./snake.ts";

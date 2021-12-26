@@ -10,12 +10,13 @@ Deno.test("Should be able to initiate a Snake", () => {
   assertEquals(snake instanceof Snake, true);
   assertEquals(
     snake.toString(),
-    '{"snake":[{"x":5,"y":5},{"x":6,"y":5},{"x":7,"y":5}],"food":{"x":9,"y":9},"status":"alive"}',
+    '{"snake":[{"x":5,"y":5},{"x":6,"y":5},{"x":7,"y":5}],"food":{"x":9,"y":9},"status":"alive","direction":1}',
   );
   assertEquals(snake.toArray(), {
     snake: [{ "x": 5, "y": 5 }, { "x": 6, "y": 5 }, { "x": 7, "y": 5 }],
     "food": { "x": 9, "y": 9 },
     "status": "alive",
+    "direction": 1
   });
 });
 
@@ -25,7 +26,7 @@ Deno.test("Should be able to initiate a Snake with default size", () => {
   });
   assertEquals(
     snake.toString(),
-    '{"snake":[{"x":5,"y":5},{"x":6,"y":5},{"x":7,"y":5},{"x":8,"y":5},{"x":9,"y":5}],"food":{"x":9,"y":9},"status":"alive"}',
+    '{"snake":[{"x":5,"y":5},{"x":6,"y":5},{"x":7,"y":5},{"x":8,"y":5},{"x":9,"y":5}],"food":{"x":9,"y":9},"status":"alive","direction":1}',
   );
 });
 
@@ -35,21 +36,21 @@ Deno.test("Should be able to initiate a snake with a default direction", () => {
   });
   assertEquals(
     snakeNorth.toString(),
-    '{"snake":[{"x":5,"y":5},{"x":5,"y":6},{"x":5,"y":7}],"food":{"x":9,"y":9},"status":"alive"}',
+    '{"snake":[{"x":5,"y":5},{"x":5,"y":6},{"x":5,"y":7}],"food":{"x":9,"y":9},"status":"alive","direction":0}',
   );
   const snakeSouth = new Snake({
     defaultDirection: 2,
   });
   assertEquals(
     snakeSouth.toString(),
-    '{"snake":[{"x":5,"y":5},{"x":5,"y":4},{"x":5,"y":3}],"food":{"x":9,"y":9},"status":"alive"}',
+    '{"snake":[{"x":5,"y":5},{"x":5,"y":4},{"x":5,"y":3}],"food":{"x":9,"y":9},"status":"alive","direction":2}',
   );
   const snakeWest = new Snake({
     defaultDirection: 3,
   });
   assertEquals(
     snakeWest.toString(),
-    '{"snake":[{"x":5,"y":5},{"x":4,"y":5},{"x":3,"y":5}],"food":{"x":9,"y":9},"status":"alive"}',
+    '{"snake":[{"x":5,"y":5},{"x":4,"y":5},{"x":3,"y":5}],"food":{"x":9,"y":9},"status":"alive","direction":3}',
   );
 });
 
@@ -58,12 +59,12 @@ Deno.test("Should be able to advance a snake", () => {
   snake.advance();
   assertEquals(
     snake.toString(),
-    '{"snake":[{"x":6,"y":5},{"x":7,"y":5},{"x":8,"y":5}],"food":{"x":9,"y":9},"status":"alive"}',
+    '{"snake":[{"x":6,"y":5},{"x":7,"y":5},{"x":8,"y":5}],"food":{"x":9,"y":9},"status":"alive","direction":1}',
   );
   snake.advance();
   assertEquals(
     snake.toString(),
-    '{"snake":[{"x":7,"y":5},{"x":8,"y":5},{"x":9,"y":5}],"food":{"x":9,"y":9},"status":"alive"}',
+    '{"snake":[{"x":7,"y":5},{"x":8,"y":5},{"x":9,"y":5}],"food":{"x":9,"y":9},"status":"alive","direction":1}',
   );
 });
 
@@ -73,13 +74,13 @@ Deno.test("Should be able to rotate left", () => {
   snake.advance();
   assertEquals(
     snake.toString(),
-    '{"snake":[{"x":6,"y":5},{"x":7,"y":5},{"x":7,"y":6}],"food":{"x":9,"y":9},"status":"alive"}',
+    '{"snake":[{"x":6,"y":5},{"x":7,"y":5},{"x":7,"y":6}],"food":{"x":9,"y":9},"status":"alive","direction":0}',
   );
   snake.turnLeft();
   snake.advance();
   assertEquals(
     snake.toString(),
-    '{"snake":[{"x":7,"y":5},{"x":7,"y":6},{"x":6,"y":6}],"food":{"x":9,"y":9},"status":"alive"}',
+    '{"snake":[{"x":7,"y":5},{"x":7,"y":6},{"x":6,"y":6}],"food":{"x":9,"y":9},"status":"alive","direction":3}',
   );
 });
 
@@ -89,13 +90,13 @@ Deno.test("Should be able to rotate right", () => {
   snake.advance();
   assertEquals(
     snake.toString(),
-    '{"snake":[{"x":6,"y":5},{"x":7,"y":5},{"x":7,"y":4}],"food":{"x":9,"y":9},"status":"alive"}',
+    '{"snake":[{"x":6,"y":5},{"x":7,"y":5},{"x":7,"y":4}],"food":{"x":9,"y":9},"status":"alive","direction":2}',
   );
   snake.turnRight();
   snake.advance();
   assertEquals(
     snake.toString(),
-    '{"snake":[{"x":7,"y":5},{"x":7,"y":4},{"x":6,"y":4}],"food":{"x":9,"y":9},"status":"alive"}',
+    '{"snake":[{"x":7,"y":5},{"x":7,"y":4},{"x":6,"y":4}],"food":{"x":9,"y":9},"status":"alive","direction":3}',
   );
 });
 
@@ -162,6 +163,6 @@ Deno.test("Initialise snake from map", async () => {
   const snake = Snake.initFromMap(mapData);
   assertEquals(
     snake.toString(),
-    '{"snake":[{"x":5,"y":3},{"x":4,"y":3},{"x":3,"y":3},{"x":2,"y":3}],"food":{"x":6,"y":7},"status":"alive"}',
+    '{"snake":[{"x":5,"y":3},{"x":4,"y":3},{"x":3,"y":3},{"x":2,"y":3}],"food":{"x":6,"y":7},"status":"alive","direction":1}',
   );
 });

@@ -38,6 +38,7 @@ const DIRECTIONS: [number, number][] = [
 class Snake {
   private entities: SEntity[];
   private directionIndex: number;
+  private nextDirectionIndex: number|undefined;
   // we don't want to advance if we're already advancing
   private locked: boolean;
 
@@ -46,12 +47,17 @@ class Snake {
   private food: SEntity;
   private isAlive: Boolean;
   private unusedCoordinates: Set<string>;
+  private _foodAteCount: number;
+
+  get foodAteCounter() {
+    return this._foodAteCount;
+  }
 
   constructor(options?: SnakeOptions) {
     this.locked = true;
-    this.directionIndex = options?.defaultDirection ?? 1;
+    this.directionIndex = this.nextDirectionIndex = options?.defaultDirection ?? 1;
     const [dx, dy] = DIRECTIONS[this.directionIndex];
-
+    
     this.xBoundary = options?.mapSize?.rows ?? 10;
     this.yBoundary = options?.mapSize?.cols ?? 10;
 
@@ -68,7 +74,7 @@ class Snake {
       x: this.xBoundary - 1,
       y: this.yBoundary - 1,
     };
-
+    this._foodAteCount = 0;
     this.unusedCoordinates = new Set();
     this.initUnusedCoordinates();
     this.isAlive = true;
@@ -141,6 +147,11 @@ class Snake {
       return;
     }
     this.locked = true;
+
+    // handle the direction and reset the next direction index to undefined.
+    this.directionIndex = this.nextDirectionIndex ?? this.directionIndex;
+    this.nextDirectionIndex = undefined;
+
     const lastEntity = this.entities[0];
     const lastIndex = this.entities.length - 1;
     const [dx, dy] = DIRECTIONS[this.directionIndex];
@@ -158,6 +169,7 @@ class Snake {
     } else {
       this.liberateUsedCoordinate(this.food);
       this.findNewFoodPosition();
+      this._foodAteCount += 1;
     }
 
     if (this.didEatSelf(head)) {
@@ -168,12 +180,16 @@ class Snake {
   }
 
   turnLeft() {
-    this.directionIndex = (this.directionIndex - 1 + DIRECTIONS.length) %
+    this.nextDirectionIndex = (this.directionIndex - 1 + DIRECTIONS.length) %
       DIRECTIONS.length;
   }
 
   turnRight() {
-    this.directionIndex = (this.directionIndex + 1) % DIRECTIONS.length;
+    this.nextDirectionIndex = (this.directionIndex + 1) % DIRECTIONS.length;
+  }
+
+  isGameOver() {
+    return !this.isAlive;
   }
 
   toArray() {
@@ -181,6 +197,7 @@ class Snake {
       snake: duplicate(this.entities),
       food: duplicate(this.food),
       status: this.isAlive ? "alive" : "dead",
+      direction: this.directionIndex
     };
   }
 
@@ -189,6 +206,7 @@ class Snake {
       snake: this.entities,
       food: this.food,
       status: this.isAlive ? "alive" : "dead",
+      direction: this.directionIndex
     });
   }
 }
