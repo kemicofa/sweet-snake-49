@@ -2,6 +2,11 @@
     General Css
 */
 
+
+/* 
+    Note: Faudrait leur expliquer l'utilité de vw et vh
+    et pas oublier de leur fournir ce lien : https://developer.mozilla.org/en-US/docs/Web/CSS/length
+*/
 body {
     margin: 0;
     font-family: 'Press Start 2P', cursive;
@@ -12,27 +17,38 @@ body {
 
 main {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding: 1rem 4rem;
     flex-grow: 1;
 }
 
-main > section {
+/* 
+    Note: Ils y a 3 elements dans le main. 2 article et un aside.
+    La on vise l'element de gauche et l'element de droit.
+    La sum de leur taile (20 + 20) est 40vw. Qui laisse 60vw
+    pour l'article au milieu qui contient le jeu du serpent.
+*/
+main > article, main > aside {
     display: flex;
-    flex-direction: row;
-}
-
-main > section > *:nth-child(2) {
-    flex-grow: 1;
-    justify-self: center;
-}
-
-main > section > *:not(:nth-child(2)) {
+    justify-content: center;
+    flex-direction: column;
     width: 20vw;
 }
 
-main > section > *:nth-child(2) > ol {
-    margin: auto;
+/*
+    Note: On vise element au milieu (l'article pour le serpent)
+    et on lui dit de donc prendre le reste de la taille disponible
+    qui est 60vw.
+*/
+main > article:nth-child(2) {
+    justify-self: center;
+    flex-grow: 1;
+}
+
+main > article:last-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 body > header {
@@ -43,20 +59,23 @@ body > header {
     padding-left: 1rem;
     padding-right: 1rem;
     box-shadow: 0 0 10px black;
-    margin-bottom: 2rem;
     color: white;
 }
 
-body > header > div {
+body > header > span {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
     align-items: center;
 }
 
-body > header > div > img {
+body > header > span > img {
     height: 64px;
     width: auto;
+}
+
+table {
+    margin: auto;
 }
 
 table, tr, th, td {
@@ -68,22 +87,17 @@ th, td {
     padding: 5px 10px;
 }
 
-a {
-    text-decoration: none;
-    color: white;
-}
-
-a:hover {
-    text-decoration-line: underline;
-}
-
 ul {
     list-style-type: none;
     padding-left: 0;
 }
 
+h2 {
+    text-align: center;
+}
+
 /* 
-    Buttons
+    Button classes
 */
 
 .button-group {
@@ -92,14 +106,20 @@ ul {
     justify-content: center;
 }
 
+.button-group .button {
+    margin: 1rem;
+}
+
 .button {
     background-color: #FFAD00;
     border: 0;
-    height: 6rem;
-    width: 6rem;
     cursor: pointer;
     border-radius: 2rem;
-    margin: 1rem;
+}
+
+.button.controls {
+    height: 6rem;
+    width: 6rem;
     box-shadow: 0 0 5px #FFAD00;
     font-size: x-large;
 }
@@ -113,34 +133,26 @@ ul {
     Form
 */
 
-body > header form {
+form {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
-body > header form > * {
+form > * {
     margin-left: 1rem;
 }
 
-body > header form > input {
+form > input {
     border: none;
     border-radius: 5px;
     padding: 0.5rem 1rem;
 }
 
-body > header form > button {
-    background-color: #FFAD00;
-    border: 0;
-    cursor: pointer;
+form > .button {
     padding: 0.5rem 1rem;
     border-radius: 5px;
-}
-
-body > header form > button:hover {
-    background-color: #E0E722;
-    box-shadow: 0 0 40px #E0E722;
 }
 
 /*
@@ -151,10 +163,20 @@ body > header form > button:hover {
     display: flex;
     background-color: #2e1424;
     flex-wrap: wrap;
+    /* 
+        Note: On fixe la largeur de la liste, pour calculer la taille exacte
+        de chaque element de la liste pour s'assurer que seul 10 elements
+        par rang peuvent se mettre (10x10).
+
+        Il faudrait leur fournir cette taille pour voir s'ils arrivent a
+        retrouver la taille de l'element
+    */
     width: 44vw;
     padding-left: 0;
     list-style-type: none;
     box-shadow: 0 0 20px black;
+    /* permet de centrer la liste dans l'article */
+    margin: auto;
 }
 
 #snake-game > * {
@@ -185,11 +207,6 @@ body > header form > button:hover {
 }
 
 #snake-game .snake.head .eye {
-    width: 2px;
-    height: 2px;
-}
-
-#snake-game .snake.head .eye {
     width: 6px;
     height: 6px;
     position: absolute;
@@ -200,25 +217,29 @@ body > header form > button:hover {
 #snake-game .snake.head .eye:first-child {
     top: 25%;
     right: 25%;
-    z-index: 11;
 }
 
 #snake-game .snake.head .eye:nth-child(2) {
     bottom: 25%;
     right: 25%;
-    z-index: 11;
 }
 
 #snake-game .snake.head .tongue {
     position: absolute;
-    bottom: 40%;
-    right: -19px;
-    width: 20px;
-    height: 10px;
+    /* 
+        Note: Faudrait leur fournir le "bottom", sinon ils ne pourrons pas trouver
+        le centre exacte eu meme.
+    */
+    bottom: calc(4vw - 50% - 0.25rem);
+    right: -1rem;
+    width: 1rem;
+    height: 0.5rem;
     background-color: #44D62C;
-    z-index: 9;
 }
 
+/*
+    Note: Faut fournir ces 4 classes.
+*/
 .direction-north {
     transform: rotate(90deg);
 }
@@ -231,19 +252,8 @@ body > header form > button:hover {
     transform: rotate(270deg);
 }
 
-
 .direction-west {
     transform: rotate(180deg);
-}
-
-/* 
-    Aside + Article
-*/
-
-aside, main > section > article:nth-child(3) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 /*
@@ -261,8 +271,14 @@ footer {
     box-shadow: 0 0 10px black;
 }
 
+/* Faut repriser la couleur blanc ici, sinon il ne va pas s'appliquer sur le 'a' */
+footer a {
+    color: white;
+}
+
 footer li {
     font-size: 0.6rem;
+    margin-bottom: 0.2rem;
 }
 
 footer > section {

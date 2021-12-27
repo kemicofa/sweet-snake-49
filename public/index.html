@@ -11,27 +11,26 @@
     </head>
     <body>
         <header>
-            <div>
+            <span>
                 <h1>11 Snake</h1>
                 <img src="./imgs/snake-v2.png" alt="snake logo">
-            </div>
+            </span>
             <form id="form">
                 <label for="username">Pick and Play</label>
                 <input type="text" name="username" id="username" placeholder="MyAwesomeUsername..." required>
-                <button type="submit">Play</button>
+                <button class="button" type="submit">Play</button>
             </form>
         </header>
         <main>
-            <section>
-                <aside>
-                    <h2>How to play</h2>
-                    <ol>
-                        <li>Choose a usernmae and play</li>
-                        <li>Arrow buttons to turn left or right</li>
-                        <li>Eat the food on the map</li>
-                        <li>Speed increases every 10 points</li>
-                        <li>It's <strong>GAME OVER</strong> if you eat yourself</li>
-                    </ol>
+            <aside>
+                <h2>How to play</h2>
+                <ol>
+                    <li>Choose a username and play</li>
+                    <li>"◀" to turn left and "▶" to turn right</li>
+                    <li>Eat the 🟣 on the map</li>
+                    <li>Speed increases every 100 points</li>
+                    <li><strong>GAME OVER</strong> if you eat yourself</li>
+                </ol>
             </aside>
             <article>
                 <ol id="snake-game">
@@ -140,23 +139,27 @@
                     <li></li>
                     <li></li>
                 </ol>
-                <div class="button-group">
-                    <button class="button" id="left">◀</button>
-                    <button class="button" id="right">▶</button>
-                </div>
             </article>
             <article>
-                <h2>Statistics</h2>
-                <table>
-                    <tr>
-                        <th>Score</th><td id="score">0</td>
-                    </tr>
-                    <tr>
-                        <th>Speed</th><td id="speed">0</td>
-                    </tr>
-                </table>
+                <section>
+                    <h2>Stats</h2>
+                    <table>
+                        <tr>
+                            <th>Score</th><td id="score">200</td>
+                        </tr>
+                        <tr>
+                            <th>Speed</th><td id="speed">+10%</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <h2>Controls</h2>
+                    <span class="button-group">
+                        <button class="button controls" id="left">◀</button>
+                        <button class="button controls" id="right">▶</button>
+                    </span>
+                </section>
             </article>
-        </section>
         </main>
         <footer>
             <section>
@@ -174,6 +177,7 @@
                     <h4>Quicklinks</h4>
                     <ul>
                         <li><a href="./highscores.html" target="_blank">highscores</a></li>
+                        <li><a href="https://en.wikipedia.org/wiki/Snake_(video_game_genre)" target="_blank">snake game history</a></li>
                     </ul>
                 </article>
             </section>
