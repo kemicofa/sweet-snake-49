@@ -16,7 +16,7 @@ Deno.test("Should be able to initiate a Snake", () => {
     snake: [{ "x": 5, "y": 5 }, { "x": 6, "y": 5 }, { "x": 7, "y": 5 }],
     "food": { "x": 9, "y": 9 },
     "status": "alive",
-    "direction": 1
+    "direction": 1,
   });
 });
 

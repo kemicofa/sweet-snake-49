@@ -38,7 +38,7 @@ const DIRECTIONS: [number, number][] = [
 class Snake {
   private entities: SEntity[];
   private directionIndex: number;
-  private nextDirectionIndex: number|undefined;
+  private nextDirectionIndex: number | undefined;
   // we don't want to advance if we're already advancing
   private locked: boolean;
 
@@ -55,9 +55,10 @@ class Snake {
 
   constructor(options?: SnakeOptions) {
     this.locked = true;
-    this.directionIndex = this.nextDirectionIndex = options?.defaultDirection ?? 1;
+    this.directionIndex = this.nextDirectionIndex = options?.defaultDirection ??
+      1;
     const [dx, dy] = DIRECTIONS[this.directionIndex];
-    
+
     this.xBoundary = options?.mapSize?.rows ?? 10;
     this.yBoundary = options?.mapSize?.cols ?? 10;
 
@@ -199,7 +200,7 @@ class Snake {
       snake: duplicate(this.entities),
       food: duplicate(this.food),
       status: this.isAlive ? "alive" : "dead",
-      direction: this.directionIndex
+      direction: this.directionIndex,
     };
   }
 
@@ -208,7 +209,7 @@ class Snake {
       snake: this.entities,
       food: this.food,
       status: this.isAlive ? "alive" : "dead",
-      direction: this.directionIndex
+      direction: this.directionIndex,
     });
   }
 }

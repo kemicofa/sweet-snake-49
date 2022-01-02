@@ -1,7 +1,12 @@
 import { Application, Router, send } from "./deps.ts";
-import { activeGamesCount, clearInactiveGames, createSnakeGame, updateSnakeGame } from "./game.ts";
-import { getHighscores } from './highscore.ts';
-import mime from 'https://cdn.skypack.dev/mime-types'
+import {
+  activeGamesCount,
+  clearInactiveGames,
+  createSnakeGame,
+  updateSnakeGame,
+} from "./game.ts";
+import { getHighscores } from "./highscore.ts";
+import mime from "https://cdn.skypack.dev/mime-types";
 
 const app = new Application();
 
@@ -22,7 +27,7 @@ router
   .delete("/snake/clear/inactive", () => {
     clearInactiveGames();
   })
-  .get('/snake/active/games/count', (context) => {
+  .get("/snake/active/games/count", (context) => {
     context.response.body = { activeGames: activeGamesCount() };
   });
 
@@ -35,14 +40,16 @@ app.use(async (context) => {
   //   root: `${Deno.cwd()}/public`,
   //   index: "index.html",
   // });
-  const pathname = context.request.url.pathname === '/' ? '/index.html' : context.request.url.pathname
-  const requestMimeType = mime.lookup(pathname)
-  const responseMimeType = mime.contentType(requestMimeType)
-  context.response.headers.set('Content-Type', responseMimeType);
+  const pathname = context.request.url.pathname === "/"
+    ? "/index.html"
+    : context.request.url.pathname;
+  const requestMimeType = mime.lookup(pathname);
+  const responseMimeType = mime.contentType(requestMimeType);
+  context.response.headers.set("Content-Type", responseMimeType);
   const location = `${Deno.cwd()}/public` + pathname;
-  context.response.body = requestMimeType === 'image/png' ? 
-    await Deno.readFile(location): 
-    await Deno.readTextFile(location);
+  context.response.body = requestMimeType === "image/png"
+    ? await Deno.readFile(location)
+    : await Deno.readTextFile(location);
 });
 
 await app.listen({ port: 8000 });

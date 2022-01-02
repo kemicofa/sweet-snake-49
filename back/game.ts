@@ -31,16 +31,16 @@ export const clearInactiveGames = () => {
     const now = (new Date()).getTime();
     // 10 seconds between each action maximum before
     // the game can be deleted
-    const TIME_TO_DELETE = 10000; 
-    if(now - updatedAt > TIME_TO_DELETE) {
+    const TIME_TO_DELETE = 10000;
+    if (now - updatedAt > TIME_TO_DELETE) {
       gamesCache.delete(gameId);
     }
   });
-}
+};
 
 export const activeGamesCount = () => {
   return gamesCache.size;
-}
+};
 
 const snakeGameToPayloadMapper = (snakeGame: SnakeGame) => {
   const { instance, ...rest } = snakeGame;
@@ -96,7 +96,9 @@ export const updateSnakeGame = (gameId: string, action: string) => {
       break;
     }
     default: {
-      throw new Error("Look if you're trying to cheat, you're not doing a good job.")
+      throw new Error(
+        "Look if you're trying to cheat, you're not doing a good job.",
+      );
     }
   }
   // TODO: if we change levels then the speed unfortunately resets
@@ -109,7 +111,7 @@ export const updateSnakeGame = (gameId: string, action: string) => {
   // check how much time it took to move, if it's less than
   // the speed of the snake then clearly someome is cheating
 
-  if(gameEntry.instance.isGameOver()) {
+  if (gameEntry.instance.isGameOver()) {
     // remove from cache when a game ends to save memory
     gamesCache.delete(gameId);
     addHighscore(gameEntry.username, gameEntry.score);
