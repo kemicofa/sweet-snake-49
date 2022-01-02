@@ -163,6 +163,11 @@ Deno.test("Initialise snake from map", async () => {
   const snake = Snake.initFromMap(mapData);
   assertEquals(
     snake.toString(),
-    '{"snake":[{"x":5,"y":3},{"x":4,"y":3},{"x":3,"y":3},{"x":2,"y":3}],"food":{"x":6,"y":7},"status":"alive","direction":1}',
+    '{"snake":[{"x":2,"y":3},{"x":3,"y":3},{"x":4,"y":3},{"x":5,"y":3}],"food":{"x":6,"y":7},"status":"alive","direction":1}',
+  );
+  snake.advance();
+  assertEquals(
+    snake.toString(),
+    '{"snake":[{"x":3,"y":3},{"x":4,"y":3},{"x":5,"y":3},{"x":6,"y":3}],"food":{"x":6,"y":7},"status":"alive","direction":1}',
   );
 });

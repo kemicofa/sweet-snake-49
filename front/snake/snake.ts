@@ -84,7 +84,9 @@ class Snake {
   static initFromMap(mapData: SMap) {
     const { snake, food, mapSize } = mapParser(mapData.map);
     return new Snake({
-      defaultSnake: snake,
+      // TODO: parser should generate a snake in the proper order
+      // but it's too annoying updating the tests to fix this
+      defaultSnake: snake.reverse(),
       defaultFood: food,
       mapSize,
       defaultDirection: mapData.metadata.D,
