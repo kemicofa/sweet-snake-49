@@ -131,11 +131,14 @@ const bindActionButtons = () => {
   });
 };
 
+let si: number;
+
 const run = () => {
   // default speed to update if the speed changes
   let previousSpeed = currentGame.speed;
   let delay = calculateSpeed(currentGame.speed);
-  const si = setInterval(async () => {
+  clearInterval(si);
+  si = setInterval(async () => {
     currentGame = await updateSnakeGame(currentGame.gameId, "A");
     draw();
     updateStatistics(currentGame);
