@@ -9,10 +9,11 @@ const requestNewGame = async (username: string) => {
 
 let currentGame: SnakeGameResponse;
 let cells: HTMLDataListElement[];
+let previousGameId: string|undefined;
 
 const calculateSpeed = (speed: number) => {
   const DEFAULT_SPEED = 1000; // in ms
-  return DEFAULT_SPEED - (speed * 10);
+  return DEFAULT_SPEED - (speed * 100);
 };
 
 const updateSnakeGame = async (gameId: string, action: string) => {
@@ -131,15 +132,25 @@ const bindActionButtons = () => {
   });
 };
 
-let si: number;
+let previousSpeed: number;
+let delay: number;
+const setup = () => {
+  previousSpeed = currentGame.speed;
+  delay = calculateSpeed(currentGame.speed);
+}
 
-const run = () => {
-  // default speed to update if the speed changes
-  let previousSpeed = currentGame.speed;
-  let delay = calculateSpeed(currentGame.speed);
-  clearInterval(si);
-  si = setInterval(async () => {
-    currentGame = await updateSnakeGame(currentGame.gameId, "A");
+const update = async () => {
+  currentGame = await updateSnakeGame(currentGame.gameId, "A");
+}
+
+let start: number|undefined;
+
+const step = async (timestamp: number) => {
+  if (start === undefined)
+    start = timestamp;
+  const elapsed = timestamp - start;
+  if (elapsed >= delay) {
+    await update();
     draw();
     updateStatistics(currentGame);
     if (currentGame.speed !== previousSpeed) {
@@ -147,11 +158,19 @@ const run = () => {
       delay = calculateSpeed(currentGame.speed);
     }
     if (currentGame.status === "dead") {
-      clearInterval(si);
       alert("GAME OVER!");
+      return;
     }
-  }, delay);
-};
+    start = undefined;
+  }
+  window.requestAnimationFrame(step);
+}
+
+const startGameLoop = () => {
+  window.requestAnimationFrame(step);
+}
+
+let ongoingLoop = false;
 
 window.addEventListener("DOMContentLoaded", () => {
   bindActionButtons();
@@ -165,7 +184,11 @@ window.addEventListener("DOMContentLoaded", () => {
         alert("Username was invalid; 2-32 alphanumeric values only.");
       }
       currentGame = await requestNewGame(username);
-      run();
+      setup();
+      if(!ongoingLoop) {
+        ongoingLoop = true;
+        startGameLoop();
+      }
     },
   );
 

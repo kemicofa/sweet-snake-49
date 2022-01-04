@@ -25,7 +25,7 @@ const requestNewGame = async (username)=>{
 let currentGame;
 let cells;
 const calculateSpeed = (speed)=>{
-    return 1000 - speed * 10;
+    return 1000 - speed * 100;
 };
 const updateSnakeGame = async (gameId, action)=>{
     const result = await fetch(`./snake/${gameId}/update/${action}`, {
@@ -109,13 +109,21 @@ const bindActionButtons = ()=>{
         updateSnakeGame(currentGame.gameId, "L");
     });
 };
-let si;
-const run = ()=>{
-    let previousSpeed = currentGame.speed;
-    let delay = calculateSpeed(currentGame.speed);
-    clearInterval(si);
-    si = setInterval(async ()=>{
-        currentGame = await updateSnakeGame(currentGame.gameId, "A");
+let previousSpeed;
+let delay;
+const setup = ()=>{
+    previousSpeed = currentGame.speed;
+    delay = calculateSpeed(currentGame.speed);
+};
+const update = async ()=>{
+    currentGame = await updateSnakeGame(currentGame.gameId, "A");
+};
+let start;
+const step = async (timestamp)=>{
+    if (start === undefined) start = timestamp;
+    const elapsed = timestamp - start;
+    if (elapsed >= delay) {
+        await update();
         draw();
         updateStatistics(currentGame);
         if (currentGame.speed !== previousSpeed) {
@@ -123,11 +131,17 @@ const run = ()=>{
             delay = calculateSpeed(currentGame.speed);
         }
         if (currentGame.status === "dead") {
-            clearInterval(si);
             alert("GAME OVER!");
+            return;
         }
-    }, delay);
+        start = undefined;
+    }
+    window.requestAnimationFrame(step);
 };
+const startGameLoop = ()=>{
+    window.requestAnimationFrame(step);
+};
+let ongoingLoop = false;
 window.addEventListener("DOMContentLoaded", ()=>{
     bindActionButtons();
     document.getElementById("form").addEventListener("submit", async function(event) {
@@ -138,7 +152,11 @@ window.addEventListener("DOMContentLoaded", ()=>{
             alert("Username was invalid; 2-32 alphanumeric values only.");
         }
         currentGame = await requestNewGame(username);
-        run();
+        setup();
+        if (!ongoingLoop) {
+            ongoingLoop = true;
+            startGameLoop();
+        }
     });
     cells = Array.from(document.querySelectorAll("#snake-game > li"));
 });
