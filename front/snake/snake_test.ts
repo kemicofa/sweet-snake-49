@@ -1,6 +1,6 @@
 import {
   assertEquals,
-  assertNotEquals,
+  assertNotEquals
 } from "https://deno.land/std@0.117.0/testing/asserts.ts";
 import { readMapFile } from "./map.ts";
 import Snake from "./snake.ts";
@@ -170,4 +170,15 @@ Deno.test("Initialise snake from map", async () => {
     snake.toString(),
     '{"snake":[{"x":3,"y":3},{"x":4,"y":3},{"x":5,"y":3},{"x":6,"y":3}],"food":{"x":6,"y":7},"status":"alive","direction":1}',
   );
+});
+
+
+Deno.test("Should properly return all the unused coordinates", async () => {
+  const mapData = await readMapFile("./snake_map_complete.txt");
+  const snake = Snake.initFromMap(mapData);
+  const unusedCoordinates = snake.unUsedCoordinates;
+  snake.toArray().snake.forEach(({x, y}) => {
+    const key = `${x}:${y}`;
+    assertEquals(unusedCoordinates.includes(key), false);
+  });
 });

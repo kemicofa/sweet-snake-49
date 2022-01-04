@@ -109,6 +109,10 @@ class Snake {
     }
   }
 
+  get unUsedCoordinates() {
+    return Array.from(this.unusedCoordinates.values());
+  }
+
   private liberateUsedCoordinate({ x, y }: SEntity) {
     this.unusedCoordinates.add(`${x}:${y}`);
   }
@@ -170,7 +174,9 @@ class Snake {
       this.entities.shift();
       this.liberateUsedCoordinate(lastEntity);
     } else {
-      this.liberateUsedCoordinate(this.food);
+      // WARNING! no need to liberate the food coordinate because
+      // the snakes head is now located there
+      // this.liberateUsedCoordinate(this.food);
       this.findNewFoodPosition();
       this._foodAteCount += 1;
     }
