@@ -11,5 +11,5 @@ export const updateStatistics = (currentGame?: SnakeGameResponse) => {
     initiated = true;
   }
   scoreElement.innerText = "" + currentGame?.score ?? 0;
-  speedElement.innerText = "+" + (currentGame?.speed ?? 0) + "%";
+  speedElement.innerText = "+" + (10 * (currentGame?.speed ?? 0)) + "%";
 };

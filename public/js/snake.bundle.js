@@ -14,7 +14,7 @@ const updateStatistics = (currentGame1)=>{
         initiated = true;
     }
     scoreElement.innerText = ("" + currentGame1?.score) ?? 0;
-    speedElement.innerText = "+" + (currentGame1?.speed ?? 0) + "%";
+    speedElement.innerText = "+" + 10 * (currentGame1?.speed ?? 0) + "%";
 };
 const requestNewGame = async (username)=>{
     const result = await fetch(`./snake/${username}`, {
@@ -112,6 +112,7 @@ const bindActionButtons = ()=>{
 let previousSpeed;
 let delay;
 const setup = ()=>{
+    start = undefined;
     previousSpeed = currentGame.speed;
     delay = calculateSpeed(currentGame.speed);
 };
@@ -123,6 +124,7 @@ const step = async (timestamp)=>{
     if (start === undefined) start = timestamp;
     const elapsed = timestamp - start;
     if (elapsed >= delay) {
+        start = undefined;
         await update();
         draw();
         updateStatistics(currentGame);
@@ -132,9 +134,9 @@ const step = async (timestamp)=>{
         }
         if (currentGame.status === "dead") {
             alert("GAME OVER!");
+            ongoingLoop = false;
             return;
         }
-        start = undefined;
     }
     window.requestAnimationFrame(step);
 };

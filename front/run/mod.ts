@@ -9,7 +9,6 @@ const requestNewGame = async (username: string) => {
 
 let currentGame: SnakeGameResponse;
 let cells: HTMLDataListElement[];
-let previousGameId: string|undefined;
 
 const calculateSpeed = (speed: number) => {
   const DEFAULT_SPEED = 1000; // in ms
@@ -135,6 +134,7 @@ const bindActionButtons = () => {
 let previousSpeed: number;
 let delay: number;
 const setup = () => {
+  start = undefined;
   previousSpeed = currentGame.speed;
   delay = calculateSpeed(currentGame.speed);
 }
@@ -150,6 +150,7 @@ const step = async (timestamp: number) => {
     start = timestamp;
   const elapsed = timestamp - start;
   if (elapsed >= delay) {
+    start = undefined;
     await update();
     draw();
     updateStatistics(currentGame);
@@ -159,9 +160,9 @@ const step = async (timestamp: number) => {
     }
     if (currentGame.status === "dead") {
       alert("GAME OVER!");
+      ongoingLoop = false;
       return;
     }
-    start = undefined;
   }
   window.requestAnimationFrame(step);
 }
