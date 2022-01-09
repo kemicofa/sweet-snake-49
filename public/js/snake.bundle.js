@@ -16,8 +16,11 @@ const updateStatistics = (currentGame1)=>{
     scoreElement.innerText = ("" + currentGame1?.score) ?? 0;
     speedElement.innerText = "+" + 10 * (currentGame1?.speed ?? 0) + "%";
 };
+const baseUrl = 'https://sweet-snake-49.deno.dev';
+const buildUrl = (uri)=>`${baseUrl}/${uri}`
+;
 const requestNewGame = async (username)=>{
-    const result = await fetch(`./snake/${username}`, {
+    const result = await fetch(buildUrl(`snake/${username}`), {
         method: "POST"
     });
     return result.json();
@@ -28,7 +31,7 @@ const calculateSpeed = (speed)=>{
     return 1000 - speed * 100;
 };
 const updateSnakeGame = async (gameId, action)=>{
-    const result = await fetch(`./snake/${gameId}/update/${action}`, {
+    const result = await fetch(buildUrl(`snake/${gameId}/update/${action}`), {
         method: "PUT"
     });
     return result.json();

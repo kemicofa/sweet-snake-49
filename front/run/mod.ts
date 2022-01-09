@@ -1,9 +1,10 @@
 import { SnakeGameResponse } from "./types.ts";
 import { validateUsername } from "./validator.ts";
 import { updateStatistics } from "./statistics.ts";
+import { buildUrl } from './url.ts';
 
 const requestNewGame = async (username: string) => {
-  const result = await fetch(`./snake/${username}`, { method: "POST" });
+  const result = await fetch(buildUrl(`snake/${username}`), { method: "POST" });
   return result.json();
 };
 
@@ -16,8 +17,8 @@ const calculateSpeed = (speed: number) => {
 };
 
 const updateSnakeGame = async (gameId: string, action: string) => {
-  const result = await fetch(`./snake/${gameId}/update/${action}`, {
-    method: "PUT",
+  const result = await fetch(buildUrl(`snake/${gameId}/update/${action}`), {
+    method: "PUT"
   });
   return result.json();
 };

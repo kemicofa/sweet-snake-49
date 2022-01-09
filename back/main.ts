@@ -1,4 +1,4 @@
-import { Application, Router, send } from "./deps.ts";
+import { Application, Router } from "./deps.ts";
 import {
   activeGamesCount,
   clearInactiveGames,
@@ -19,7 +19,7 @@ router
   })
   .put("/snake/:gameId/update/:action", async (context) => {
     const { gameId, action } = context.params;
-    context.response.body = await updateSnakeGame(gameId, action);
+    context.response.body = updateSnakeGame(gameId, action);
   })
   .get("/snake/highscores", (context) => {
     context.response.body = getHighscores();
@@ -30,9 +30,18 @@ router
   .get("/snake/active/games/count", (context) => {
     context.response.body = { activeGames: activeGamesCount() };
   });
-
+  
+// This will cause CORS issue : app.use(router.allowedMethods());
+app.use((context, next) => {
+  context.response.headers.set('Access-Control-Allow-Origin', '*');
+  context.response.headers.set('Access-Control-Allow-Methods', 'POST, GET, PUT, OPTIONS, DELETE')
+  if(context.request.method === 'OPTIONS') {
+    context.response.status = 204;
+    return;
+  }
+  return next();
+});
 app.use(router.routes());
-app.use(router.allowedMethods());
 
 app.use(async (context) => {
   // TODO: send does not work on Deno Deploy, must wait till Deno.stat is implemented on DD.
